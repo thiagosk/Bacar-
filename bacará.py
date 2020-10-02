@@ -3,7 +3,7 @@
 
 import random
 
-fdj = 50 #fichas do jogador
+fdj = 100 #fichas do jogador
 
 fichas = int(input("Quantas fichas deseja apostar? "))
 fs = fdj - fichas #fs=fichas sobrando
