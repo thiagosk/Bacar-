@@ -1,21 +1,21 @@
 # Insper - Engenharia - Design de Software - Exercício Programa: Bacará Simplificado
-# Thiago Shiguero Kawahara - Turma B - 10/2020
+# Thiago Shiguero Kawahara - Turma B - 18/10/2020
 
 import random
 
-pessoas = int(input("Quantas pessoas gostariam de jogar? "))
+pessoas = int(input("Quantas pessoas gostariam de jogar? ")) #Pergunta quantas pessoas vão jogar
 
-fdj = 100 #fichas do jogador
-listaf = [] #lista fichas dos jogadores
-listafi = [] #lista fichas apostadas
-listaa = [] #lista apostas
+fdj = 100 #fichas iniciais de cada jogador
+listaf = [] #lista que contêm a quantidade de fichas dos jogadores
+listafi = [] #lista que contêm as fichas apostadas pelos jogadores
+listaa = [] #lista que contêm em quem os jogadores apostaram (banco/jogador/empate)
 
-if pessoas > 0:
-    contador = 1
+if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
+    contador = 1 #ajuda no funcionamento do looping
 
     while pessoas > 0:
 
-        x = listaf.count(0)
+        x = listaf.count(0) #remove os jogadores que sairam 
         i = 0
         while i < x:
             listaf.remove(0)
@@ -23,54 +23,46 @@ if pessoas > 0:
             listaa.remove(0)
             i+=1
 
-        if contador != 1:
+        if contador != 1: #para todas as rodadas menos a primeira
             pessoas = len(listaf)
         else:
-            None
+            None 
 
         t=1
         while t <= pessoas:
-            if contador == 1:
-                listaf.append(fdj)
-            else:
+            if contador == 1: #somente para a primeira rodada
+                listaf.append(fdj) #a lista começa vazia por isso tem que iniciar colocando os dados nela
+            else: 
                 None
-            print("Jogador{0} tem {1} fichas.".format(t,listaf[t-1]))
-            fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+            print("Jogador{0} tem {1} fichas.".format(t,listaf[t-1])) 
+            fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
 
             c = True
-            while c:
-                if contador == 1:
+            while c: #caso as fichas apostadas sejam invalidas, o programa faz a pergunta novamente
+                if contador == 1: #primeira rodada
                     if fichas > fdj:
-                        fichas = int(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
-                    elif fichas == 0:
-                        fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = float(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                    elif fichas <= 0:
+                        fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     else:
-                        if contador == 1:
-                            listafi.append(fichas)
-                            c = False
-                        else:
-                            listafi[t-1] = fichas
-                            c = False
-                else:
+                        listafi.append(fichas)
+                        c = False
+                else: #para as outras rodadas
                     if fichas > listaf[t-1]:
-                        fichas = int(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
-                    elif fichas == 0:
-                        fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = float(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                    elif fichas <= 0:
+                        fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     else:
-                        if contador == 1:
-                            listafi.append(fichas)
-                            c = False
-                        else:
-                            listafi[t-1] = fichas
-                            c = False
+                        listafi[t-1] = fichas
+                        c = False
 
             t+=1 
         
         t=1
-        while t <= pessoas:
+        while t <= pessoas: #Pergunta em quem irá apostar
             aposta = input("Em quem irá apostar jogador{0}? (jogador/banco/empate) ".format(t))
             co = True
-            while co:
+            while co: #Se a aposta for diferente das exigidas, perguta novamente
                 if aposta != "jogador" and aposta != "banco" and aposta != "empate":
                     aposta = input("Em quem irá apostar jogador{0}? (jogador/banco/empate) ".format(t))
                 else:
@@ -82,16 +74,16 @@ if pessoas > 0:
                         co = False
             t+=1
         
-        baralho = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"] * 4 * 8
+        baralho = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"] * 4 * 8 #baralho + embaralhar
         random.shuffle(baralho)
 
-        print("Cartas do jogador: {0} e {1} ".format(baralho[0],baralho[1]))
+        print("Cartas do jogador: {0} e {1} ".format(baralho[0],baralho[1])) #mostra as cartas do jogador e da mesa
         print("Cartas do banco: {0} e {1} ".format(baralho[2],baralho[3]))
         indice5 = baralho[4]
         indice6 = baralho[5]
 
         i = 0
-        while i<len(baralho):
+        while i<len(baralho): #troca strings do baralho para numeros para realizar as contas
             if baralho[i] == "A":
                 baralho[i] = 1
                 i+=1
@@ -111,23 +103,23 @@ if pessoas > 0:
                 baralho[i] = baralho[i]
                 i+=1
 
-        cartasj = []
+        cartasj = [] #fazer as contas das cartas do jogador
         cartasj.append(baralho[0])
         cartasj.append(baralho[1])
         somaj = sum(cartasj)
-        somajstr = str(somaj)
-        valorj = somajstr[len(somajstr)-1]
-        valorjint = int(valorj)
+        somajstr = str(somaj) #para pegar o ultimo algarismo da soma
+        valorj = somajstr[len(somajstr)-1] #pega o ultimo algarismo
+        valorjint = int(valorj) #volta a ser um numero para fazer contas no futuro
 
-        cartasb = []
+        cartasb = [] #fazer as contas das cartas do banco
         cartasb.append(baralho[2])
         cartasb.append(baralho[3])
         somab = sum(cartasb)
-        somabstr = str(somab)
-        valorb = somabstr[len(somabstr)-1]
-        valorbint = int(valorb)
+        somabstr = str(somab) #para pegar o ultimo algarismo da soma
+        valorb = somabstr[len(somabstr)-1] #pega o ultimo algarismo
+        valorbint = int(valorb) #volta a ser um numero para fazer contas no futuro
 
-        if somajstr == "6" or somajstr == "7":
+        if somajstr == "6" or somajstr == "7": #condiçoes para entregar a terceira carta do jogador
             somajstr = somajstr
         elif somajstr <= "5" and somabstr != "8" and somabstr != "9":
             novacartaj = []
@@ -142,7 +134,7 @@ if pessoas > 0:
         else:
             None
 
-        if somabstr == "6" or somabstr == "7":
+        if somabstr == "6" or somabstr == "7": #condiçoes para entregar a terceira carta para o banco
             somabstr = somabstr
         elif somabstr <= "5" and somajstr != "8" and somajstr != "9":
             novacartab = []
@@ -157,7 +149,7 @@ if pessoas > 0:
         else:
             None 
 
-        if valorjint > valorbint:
+        if valorjint > valorbint: #mostrar o ganhador
             print("Jogador ganhou!")
         elif valorjint < valorbint:
             print("Banco ganhou!")
@@ -165,7 +157,7 @@ if pessoas > 0:
             print("Empate!")
 
         t=1
-        while t <= pessoas:
+        while t <= pessoas: #pagamento das apostas
             if valorjint > valorbint:
                 if listaa[t-1] == "jogador":
                     listaf[t-1] = listaf[t-1] + listafi[t-1]
@@ -184,22 +176,22 @@ if pessoas > 0:
             t+=1
             
         t=1
-        while t <= pessoas:
+        while t <= pessoas: #falar quanto cada jogador tem dps das aposta
             print("Jogador{0} esta com {1} fichas agora. ".format(t,listaf[t-1]))
             t+=1
 
-        listap = [] #lista pergunta
+        listap = [] #lista que contêm as respostas(n ou s)
         t=1
         while t <= pessoas:
             if listaf[t-1] > 0:
                 pergunta = input("Continuar jogando jogador{0}? (s/n) ".format(t))
                 con = True
-                while con:
+                while con: #se a resposta for direfente de "n" ou "s", pergutan dnv
                     if pergunta != "n" and pergunta != "s":
                         pergunta = input("Continuar jogando jogador{0}? (s/n) ".format(t))
                     else:
                         listap.append(pergunta)
-                        if listap[t-1] == "n":
+                        if listap[t-1] == "n": #zerar os valores da lista do jogador que disse "nao" para facilitar sua remoçao do jogo
                             print("Jogador{0} saiu.".format(t))
                             listaf[t-1] = 0
                             listafi[t-1] = 0
@@ -210,14 +202,14 @@ if pessoas > 0:
                             t+=1
                         con = False
             else:
-                print("Jogador{0} saiu.".format(t))
+                print("Jogador{0} saiu.".format(t)) #zerar os valores da lista do jogador que ta com 0 fichas para facilitar sua remoçao do jogo
                 listaf[t-1] = 0
                 listafi[t-1] = 0
                 listaa[t-1] = 0
                 listap.append(0)
                 t+=1
 
-        x = listaf.count(0)
+        x = listaf.count(0) #remover as pessoas do jogo
         i = 0
         while i < x:
             listaf.remove(0)
@@ -225,15 +217,15 @@ if pessoas > 0:
             listaa.remove(0)
             i+=1
 
-        pessoas = len(listaf)
+        pessoas = len(listaf) #atualizar a quantidade de jogadores
 
-        if pessoas > 0:
+        if pessoas > 0: #fala se o jogo continua ou acaba dependendo da quantidade de jogadores
             print("Próxima rodada!")
             contador+=1
         else:
             print("Até a próxima.")
 
-else:
+else: #sem jogadores iniciais, o jogo nem roda
     print("Sem problema.")
 
 
