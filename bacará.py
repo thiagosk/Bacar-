@@ -1,5 +1,5 @@
 # Insper - Engenharia - Design de Software - Exercício Programa: Bacará Simplificado
-    # Thiago Shiguero Kawahara - Turma B - 18/10/2020
+# Thiago Shiguero Kawahara - Turma B - 18/10/2020
 
 import random
 
@@ -17,7 +17,7 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
 
         quantidade = int(input("Quantos baralhos desejam jogar? (1/6/8)")) #Quantos baralhos no jogo
         while quantidade != 1 and quantidade !=6 and quantidade !=8:
-            quantidade = int(input("Quantos baralhos desejam jogar? (1/6/8)"))
+            quantidade = int(input("Desculpa, apenas com 1,6 ou 8 baralhos. Quantos baralhos desejam jogar? (1/6/8)"))
 
         x = listaf.count(0) #remove os jogadores que sairam 
         i = 0
