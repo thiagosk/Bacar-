@@ -15,6 +15,10 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
 
     while pessoas > 0:
 
+        quantidade = int(input("Quantos baralhos desejam jogar? (1/6/8)")) #Quantos baralhos no jogo
+        while quantidade != 1 and quantidade !=6 and quantidade !=8:
+            quantidade = int(input("Quantos baralhos desejam jogar? (1/6/8)"))
+
         x = listaf.count(0) #remove os jogadores que sairam 
         i = 0
         while i < x:
@@ -34,6 +38,7 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
                 listaf.append(fdj) #a lista começa vazia por isso tem que iniciar colocando os dados nela
             else: 
                 None
+            listaf[t-1] = int(listaf[t-1])
             print("Jogador{0} tem {1} fichas.".format(t,listaf[t-1])) 
             fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
 
@@ -74,8 +79,9 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
                         co = False
             t+=1
         
-        baralho = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"] * 4 * 8 #baralho + embaralhar
+        baralho = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"] * 4 * quantidade #baralho + embaralhar
         random.shuffle(baralho)
+        print(len(baralho)) ###APAGAR
 
         print("Cartas do jogador: {0} e {1} ".format(baralho[0],baralho[1])) #mostra as cartas do jogador e da mesa
         print("Cartas do banco: {0} e {1} ".format(baralho[2],baralho[3]))
@@ -160,23 +166,39 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
         while t <= pessoas: #pagamento das apostas
             if valorjint > valorbint:
                 if listaa[t-1] == "jogador":
-                    listaf[t-1] = listaf[t-1] + listafi[t-1] 
+                    if quantidade == 1: #depende da quantidade de baralhos
+                        listaf[t-1] = listaf[t-1] + listafi[t-1] - (1.29/100 * listafi[t-1])
+                    elif quantidade == 6:
+                        listaf[t-1] = listaf[t-1] + listafi[t-1] - (1.24/100 * listafi[t-1])
+                    else:
+                        listaf[t-1] = listaf[t-1] + listafi[t-1] - (1.24/100 * listafi[t-1])
                 else:
                     listaf[t-1] = listaf[t-1] - listafi[t-1]
             elif valorjint < valorbint:
                 if listaa[t-1] == "banco":
-                    listaf[t-1] = listaf[t-1] + (95/100 * listafi[t-1])
+                    if quantidade == 1:
+                        listaf[t-1] = listaf[t-1] + (95/100 * listafi[t-1]) - (1.01/100 * listafi[t-1])
+                    elif quantidade == 6:
+                        listaf[t-1] = listaf[t-1] + (95/100 * listafi[t-1]) - (1.06/100 * listafi[t-1])
+                    else:
+                        listaf[t-1] = listaf[t-1] + (95/100 * listafi[t-1]) - (1.06/100 * listafi[t-1])
                 else:
                     listaf[t-1] = listaf[t-1] - listafi[t-1]
             elif valorjint == valorbint:
                 if listaa[t-1] == "empate":
-                    listaf[t-1] = listaf[t-1] + (8 * listafi[t-1])
+                    if quantidade == 1:
+                        listaf[t-1] = listaf[t-1] + (8 * listafi[t-1]) - (15.75/100 * listafi[t-1])
+                    elif quantidade == 6:
+                        listaf[t-1] = listaf[t-1] + (8 * listafi[t-1]) - (14.44/100 * listafi[t-1])
+                    else:
+                        listaf[t-1] = listaf[t-1] + (8 * listafi[t-1]) - (14.36/100 * listafi[t-1])
                 else:
                     listaf[t-1] = listaf[t-1] - listafi[t-1]
             t+=1
             
         t=1
         while t <= pessoas: #falar quanto cada jogador tem dps das aposta
+            listaf[t-1] = int(listaf[t-1])
             print("Jogador{0} esta com {1} fichas agora. ".format(t,listaf[t-1]))
             t+=1
 
