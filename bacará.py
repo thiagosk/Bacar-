@@ -1,5 +1,5 @@
 # Insper - Engenharia - Design de Software - Exercício Programa: Bacará Simplificado
-# Thiago Shiguero Kawahara - Turma B - 18/10/2020
+    # Thiago Shiguero Kawahara - Turma B - 18/10/2020
 
 import random
 
@@ -35,23 +35,23 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
             else: 
                 None
             print("Jogador{0} tem {1} fichas.".format(t,listaf[t-1])) 
-            fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+            fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
 
             c = True
             while c: #caso as fichas apostadas sejam invalidas, o programa faz a pergunta novamente
                 if contador == 1: #primeira rodada
                     if fichas > fdj:
-                        fichas = float(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = int(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     elif fichas <= 0:
-                        fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     else:
                         listafi.append(fichas)
                         c = False
                 else: #para as outras rodadas
                     if fichas > listaf[t-1]:
-                        fichas = float(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = int(input("Fichas insuficientes. Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     elif fichas <= 0:
-                        fichas = float(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
+                        fichas = int(input("Quantas fichas deseja apostar jogador{0}? ".format(t)))
                     else:
                         listafi[t-1] = fichas
                         c = False
@@ -160,7 +160,7 @@ if pessoas > 0: #o jogo só roda se tiver alguêm para jogar
         while t <= pessoas: #pagamento das apostas
             if valorjint > valorbint:
                 if listaa[t-1] == "jogador":
-                    listaf[t-1] = listaf[t-1] + listafi[t-1]
+                    listaf[t-1] = listaf[t-1] + listafi[t-1] 
                 else:
                     listaf[t-1] = listaf[t-1] - listafi[t-1]
             elif valorjint < valorbint:
